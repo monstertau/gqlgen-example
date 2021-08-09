@@ -1,0 +1,46 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type DataPoint{
+    count: Int!,
+    timestamp: Int!,
+    attribute: String!,
+}
+type Data{
+    points: [DataPoint!]!
+}
+
+type Statistic{
+    id: ID!,
+    duration: String!,
+    interval: String!,
+    mode: String!,
+    timezone: String!,
+    data: Data!
+}
+type Query{
+    statistic: [Statistic!]
+    search(id: String!):Statistic
+}
+input NewData{
+    points:[NewDataPoint!]
+}
+input NewDataPoint{
+    count: Int!,
+    timestamp: Int!,
+    attribute: String!,
+}
+
+input NewStatistic {
+    duration: String!,
+    interval: String!,
+    mode: String!,
+    timezone: String!,
+    data: NewData!
+}
+
+
+type Mutation {
+    createStatistic(input: NewStatistic!): Statistic!
+}
